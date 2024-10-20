@@ -47,4 +47,4 @@ if __name__ == "__main__":
     # Bloque de conexión
     conexion = Conexion()
     conexionBD = conexion.ConexionBasica()
-    conexion.CerrarConexion(conexionBD)
+    # conexion.CerrarConexion(conexionBD)
