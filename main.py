@@ -33,8 +33,18 @@ class Conexion:
             print("Error al conectar con la base de datos: ", e)
             return None
 
+    # Cerrar la conexión a la base de datos
+    def CerrarConexion(self, conexion):
+        try:
+            conexion.close()
+            print("Conexión cerrada correctamente.")
+        except pyodbc.Error as e:
+            # Captura errores al cerrar la conexión
+            print("Error al cerrar la conexión:", e)
+
 # Ejecución como script
 if __name__ == "__main__":
     # Bloque de conexión
     conexion = Conexion()
-    conexionBD = conexion.ConexionBasica()    
+    conexionBD = conexion.ConexionBasica()
+    conexion.CerrarConexion(conexionBD)
