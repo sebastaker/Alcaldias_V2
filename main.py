@@ -201,7 +201,6 @@ class Conexion:
             # Convertir fechas a formato string si son del tipo datetime.date
             if isinstance(fecha_inicio, datetime.date):
                 fecha_inicio = fecha_inicio.strftime('%Y-%m-%d')
-            if isinstance(fecha_fin, datetime.date):
                 fecha_fin = fecha_fin.strftime('%Y-%m-%d')
 
             # Llamada al procedimiento almacenado
