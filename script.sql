@@ -2,13 +2,13 @@
 CREATE DATABASE IF NOT EXISTS Administracion_Alcaldias;
 USE Administracion_Alcaldias;
 
--- Creación de la tablas
+-- Creación de las tablas
 
 CREATE TABLE MUNICIPIOS (
     municipio_id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
     poblacion INT NOT NULL,
-    area FLOAT NOT NULL,
+    area DECIMAL(10, 2) NOT NULL,
     alcalde_actual VARCHAR(100),
     fecha_fundacion DATE
 ) DEFAULT CHARSET=utf8mb4;
@@ -19,7 +19,7 @@ CREATE TABLE DEPARTAMENTOS (
     municipio_id INT,
     responsable VARCHAR(100),
     funcion VARCHAR(255),
-    FOREIGN KEY (municipio_id) REFERENCES MUNICIPIOS(municipio_id)
+    FOREIGN KEY (municipio_id) REFERENCES MUNICIPIOS(municipio_id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE ALCALDES (
@@ -29,7 +29,7 @@ CREATE TABLE ALCALDES (
     municipio_id INT,
     fecha_inicio_mandato DATE,
     fecha_fin_mandato DATE,
-    FOREIGN KEY (municipio_id) REFERENCES MUNICIPIOS(municipio_id)
+    FOREIGN KEY (municipio_id) REFERENCES MUNICIPIOS(municipio_id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE PROYECTOS (
@@ -38,9 +38,9 @@ CREATE TABLE PROYECTOS (
     departamento_id INT,
     fecha_inicio DATE,
     fecha_fin DATE,
-    presupuesto FLOAT,
+    presupuesto DECIMAL(15, 2),
     estado VARCHAR(50),
-    FOREIGN KEY (departamento_id) REFERENCES DEPARTAMENTOS(departamento_id)
+    FOREIGN KEY (departamento_id) REFERENCES DEPARTAMENTOS(departamento_id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE PROVEEDORES (
@@ -56,12 +56,12 @@ CREATE TABLE CONTRATOS (
     contrato_id INT PRIMARY KEY AUTO_INCREMENT,
     proyecto_id INT,
     proveedor_id INT,
-    monto FLOAT,
+    monto DECIMAL(15, 2),
     fecha_firma DATE,
     fecha_termino DATE,
     estado VARCHAR(50),
-    FOREIGN KEY (proyecto_id) REFERENCES PROYECTOS(proyecto_id),
-    FOREIGN KEY (proveedor_id) REFERENCES PROVEEDORES(proveedor_id)
+    FOREIGN KEY (proyecto_id) REFERENCES PROYECTOS(proyecto_id) ON DELETE CASCADE,
+    FOREIGN KEY (proveedor_id) REFERENCES PROVEEDORES(proveedor_id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE EMPLEADOS (
@@ -71,19 +71,19 @@ CREATE TABLE EMPLEADOS (
     cargo VARCHAR(100),
     departamento_id INT,
     fecha_ingreso DATE,
-    salario FLOAT,
-    FOREIGN KEY (departamento_id) REFERENCES DEPARTAMENTOS(departamento_id)
+    salario DECIMAL(15, 2),
+    FOREIGN KEY (departamento_id) REFERENCES DEPARTAMENTOS(departamento_id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE PRESUPUESTO_MUNICIPAL (
     presupuesto_id INT PRIMARY KEY AUTO_INCREMENT,
     municipio_id INT,
     anio INT NOT NULL,
-    ingresos FLOAT,
-    egresos FLOAT,
-    saldo FLOAT,
-    FOREIGN KEY (municipio_id) REFERENCES MUNICIPIOS(municipio_id)
-) DEFAULT CHARSET=utf8mb4;
+    ingresos DECIMAL(15, 2),
+    egresos DECIMAL(15, 2),
+    saldo DECIMAL(15, 2),
+    FOREIGN KEY (municipio_id) REFERENCES MUNICIPIOS(municipio_id) ON DELETE CASCADE
+) DEFAULT CHARSET=utf8mb4; 
 
 CREATE TABLE PROGRAMAS_SOCIALES (
     programa_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -92,7 +92,7 @@ CREATE TABLE PROGRAMAS_SOCIALES (
     beneficiarios INT,
     fecha_inicio DATE,
     fecha_fin DATE,
-    FOREIGN KEY (departamento_id) REFERENCES DEPARTAMENTOS(departamento_id)
+    FOREIGN KEY (departamento_id) REFERENCES DEPARTAMENTOS(departamento_id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE EVENTOS_MUNICIPALES (
@@ -103,7 +103,7 @@ CREATE TABLE EVENTOS_MUNICIPALES (
     ubicacion VARCHAR(100),
     descripcion TEXT,
     tipo VARCHAR(50),
-    FOREIGN KEY (municipio_id) REFERENCES MUNICIPIOS(municipio_id)
+    FOREIGN KEY (municipio_id) REFERENCES MUNICIPIOS(municipio_id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8mb4;
 
 -- Inserción de datos 
@@ -112,7 +112,7 @@ INSERT INTO MUNICIPIOS (nombre, poblacion, area, alcalde_actual, fecha_fundacion
 VALUES 
 ('Medellín', 2500000, 380.64, 'Daniel Quintero', '1616-03-02'),
 ('Envigado', 230000, 79.72, 'Braulio Espinosa', '1775-08-31'),
-('Bello', 600000, 149.9, 'Óscar Andrés Pérez', '1676-12-27');
+('Bello', 600000, 149.90, 'Óscar Andrés Pérez', '1676-12-27');
 
 INSERT INTO DEPARTAMENTOS (nombre, municipio_id, responsable, funcion)
 VALUES 

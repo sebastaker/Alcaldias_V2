@@ -244,8 +244,8 @@ if __name__ == "__main__":
 
         # Municipio
         conexion.insertar_municipio('Medellín', 2500000, 380.64, 'Daniel Quintero', datetime.date(1616, 3, 2))
-        insertar_municipio(conexion, "Envigado", 230000, 79.72, "Braulio Espinosa", datetime.date(1775, 8, 31))
-        insertar_municipio(conexion, "Bello", 600000, 149.9, "Óscar Andrés Pérez", datetime.date(1676, 12, 27))
+        conexion.insertar_municipio(conexion, "Envigado", 230000, 79.72, "Braulio Espinosa", datetime.date(1775, 8, 31))
+        conexion.insertar_municipio(conexion, "Bello", 600000, 149.9, "Óscar Andrés Pérez", datetime.date(1676, 12, 27))
 
         # Departamento
         conexion.insertar_departamento('Despacho del Alcalde', 1, 'Daniel Quintero', 'Centro de toma de decisiones y representación legal')
