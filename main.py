@@ -320,3 +320,9 @@ if __name__ == "__main__":
         conexion.consultar_registros("presupuesto_municipal", "anio = '2023'")
 
         conexion.CerrarConexion(conexionBD)
+
+        # prueba commit
+        conexion.consultar_municipios()
+        conexion.editar_municipio(municipio_id=1, nombre='Medallo')
+        conexion.eliminar_municipio(municipio_id=2)
+        conexion.consultar_municipios()
