@@ -233,6 +233,34 @@ class Conexion:
         finally:
             cursor.close()
 
+    # Consultar registros de cualquier tabla
+    def consultar_registros(self, tabla, condiciones=None):
+        try:
+            conexion = pyodbc.connect(self.string_conexion)
+            cursor = conexion.cursor()
+            consulta = f"SELECT * FROM {tabla}"
+
+            if condiciones:
+                consulta += f" WHERE {condiciones}"
+
+            cursor.execute(consulta)
+            resultados = cursor.fetchall()
+
+            # Obtener los nombres de las columnas
+            columnas = [column[0] for column in cursor.description]
+            registros = [dict(zip(columnas, fila)) for fila in resultados]
+
+            print(f"Resultados obtenidos de la tabla {tabla}:")
+            for registro in registros:
+                print(registro)
+
+            return registros
+        except Exception as e:
+            print(f"Error al consultar la tabla {tabla}: ", e)
+            return None
+        finally:
+            cursor.close()
+
 
 # Ejecución como script
 if __name__ == "__main__":
@@ -284,5 +312,11 @@ if __name__ == "__main__":
         # Eventos Municipales
         conexion.insertar_evento_municipal('Feria de las Flores', 1, '2023-08-01', 'Centro de Medellín', 'Evento cultural tradicional', 'Cultural')
         conexion.insertar_evento_municipal('Festival del Rio', 2, '2023-09-15', 'Parque Principal', 'Celebración anual del río', 'Recreativo')
+
+        # Consultas
+        conexion.consultar_registros('municipios')
+        conexion.consultar_registros('departamentos', "responsable = 'Juan Pérez'")
+        conexion.consultar_registros('proyectos proy INNER JOIN departamentos deps ON proy.departamento_id = deps.departamento_id', "proy.estado = 'En progreso'")
+        conexion.consultar_registros("presupuesto_municipal", "anio = '2023'")
 
         conexion.CerrarConexion(conexionBD)
