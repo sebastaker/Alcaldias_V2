@@ -1,5 +1,5 @@
 import sys;
-import jsonify;
+from flask import jsonify;
 import flask;
 import sys;
 import json;
@@ -254,38 +254,20 @@ class Conexion:
             cursor.close()
 
 # Metodo para modificar un dato de la tabla municipios
-    def editar_municipio(self, municipio_id, nombre=None, poblacion=None, area=None, alcalde_actual=None, fecha_fundacion=None):
+    def editar_municipio(self, municipio_id, nombre, poblacion, area, alcalde_actual, fecha_fundacion):
         try:
             conexion = pyodbc.connect(self.string_conexion)
             cursor = conexion.cursor()
-
-            # Construir la consulta para actualizar los campos enviados
-            campos = []
-            if nombre:
-                campos.append(f"nombre = '{nombre}'")
-            if poblacion:
-                campos.append(f"poblacion = {poblacion}")
-            if area:
-                campos.append(f"area = {area}")
-            if alcalde_actual:
-                campos.append(f"alcalde_actual = '{alcalde_actual}'")
-            if fecha_fundacion and isinstance(fecha_fundacion, datetime.date):
+            if isinstance(fecha_fundacion, datetime.date):
                 fecha_fundacion = fecha_fundacion.strftime('%Y-%m-%d')
-                campos.append(f"fecha_fundacion = '{fecha_fundacion}'")
 
-            # Unir los campos a actualizar en una cadena SQL
-            campos_a_actualizar = ", ".join(campos)
-
-            # Consulta SQL para actualizar el municipio
-            consulta = f"UPDATE municipios SET {campos_a_actualizar} WHERE municipio_id = {municipio_id}"
-            
+            # Llamada al procedimiento almacenado
+            consulta = f"CALL proc_EditMunicipio({municipio_id}, '{nombre}', {poblacion}, {area}, '{alcalde_actual}', '{fecha_fundacion}')"
             cursor.execute(consulta)
             conexion.commit()
-            print(f"Municipio con ID {municipio_id} actualizado exitosamente.")
-
+            print("Municipio editado exitosamente.")
         except Exception as e:
-            print(f"Error al actualizar el municipio con ID {municipio_id}: ", e)
-
+            print("Error al editar municipio: ", e)
         finally:
             cursor.close()
 
@@ -295,16 +277,13 @@ class Conexion:
             conexion = pyodbc.connect(self.string_conexion)
             cursor = conexion.cursor()
 
-            # Consulta SQL para eliminar el municipio por ID
-            consulta = f"DELETE FROM municipios WHERE municipio_id = {municipio_id}"
-
+            # Llamada al procedimiento almacenado
+            consulta = f"CALL proc_DeleteMunicipio({municipio_id})"
             cursor.execute(consulta)
             conexion.commit()
-            print(f"Municipio con ID {municipio_id} eliminado exitosamente.")
-
+            print("Municipio eliminado exitosamente.")
         except Exception as e:
-            print(f"Error al eliminar el municipio con ID {municipio_id}: ", e)
-
+            print("Error al eliminar municipio: ", e)
         finally:
             cursor.close()
             self.CerrarConexion(conexion)    
@@ -395,14 +374,15 @@ if __name__ == "__main__":
         conexion.consultar_registros('proyectos proy INNER JOIN departamentos deps ON proy.departamento_id = deps.departamento_id', "proy.estado = 'En progreso'")
         conexion.consultar_registros("presupuesto_municipal", "anio = '2023'")
 
+        #Editar municipio
+        conexion.editar_municipio(municipio_id=1, nombre='Medallo', poblacion=500000, area=100.5, alcalde_actual='Alcalde A', fecha_fundacion='1990-01-01')
+        
+        #Eliminar municipio
+        conexion.eliminar_municipio(municipio_id=1)  
+
         #Consultar municipios
         conexion.consultar_municipios()
         
-        #Editar municipio
-        conexion.editar_municipio(municipio_id=1, nombre='Medallo')
-        
-        #Eliminar municipio
-        conexion.eliminar_municipio(municipio_id=2)
-        
+              
 
         conexion.CerrarConexion(conexionBD)

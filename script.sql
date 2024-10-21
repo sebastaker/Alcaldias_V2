@@ -325,3 +325,38 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE proc_EditMunicipio(
+    IN p_id INT,
+    IN p_nombre VARCHAR(100),
+    IN p_poblacion INT,
+    IN p_area FLOAT,
+    IN p_alcalde_actual VARCHAR(100),
+    IN p_fecha_fundacion DATE
+)
+BEGIN
+    UPDATE MUNICIPIOS
+    SET 
+        nombre = p_nombre,
+        poblacion = p_poblacion,
+        area = p_area,
+        alcalde_actual = p_alcalde_actual,
+        fecha_fundacion = p_fecha_fundacion
+    WHERE municipio_id = p_id;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE proc_DeleteMunicipio(
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM MUNICIPIOS
+    WHERE municipio_id = p_id;
+END$$
+
+DELIMITER ;
