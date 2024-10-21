@@ -30,7 +30,7 @@ problema definido
     + py -m pip install jsonify
 #### SQL
  - Ver procedimientos almacenados en la base de datos: 
-*HOW PROCEDURE STATUS WHERE Db = 'Administracion_Alcaldias';*
+*SHOW PROCEDURE STATUS WHERE Db = 'Administracion_Alcaldias';*
 
                 
 
