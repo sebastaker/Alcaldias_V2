@@ -1,7 +1,6 @@
 import pyodbc;
 import datetime;
 import decimal;
-
 from decimal import Decimal
 
 class Municipio:
