@@ -1,40 +1,17 @@
 import pyodbc
 import pymysql
 from Clases.clases import *
+from Clases.Conexion import Conexion
 
 
-class Conexion:
-  # Cadena de conexión
-    string_conexion = {
-            'host': 'localhost',
-            'user': 'sebas_python',  
-            'password': 'Sebas5279',
-            'database': 'Administracion_Alcaldias',
-            'port': 3306  # Puerto por defecto para MySQL
-        }
-    string_conexion_2: str = """
-        Driver={MySQL ODBC 9.0 Unicode Driver};
-        Server=localhost;
-        Database=Administracion_Alcaldias;
-        PORT=3306;
-        user=sebas_python;
-        password=Sebas5279"""
-
-    def verificar_conexion(self):        
-        try:
-            conexion = pymysql.connect(**self.string_conexion)
-            print("Conexión exitosa a la base de datos.")
-            conexion.close()
-        except pymysql.MySQLError as e:
-            print(f"Error al conectar a la base de datos: {e}")
-
+class Select:
     def consultar_municipio(self, municipio_id: int) -> None:
-        """Consulta un municipio por su ID."""
+        conexion = Conexion()
         consulta: str = "CALL proc_SelectMunicipio(%s)"
         print(f"Ejecutando consulta: {consulta} con parámetro: {municipio_id}")
         
         try:
-            conexion = pymysql.connect(**self.string_conexion)
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Ejecutar la consulta y pasa el parámetro
@@ -62,39 +39,13 @@ class Conexion:
         except pymysql.MySQLError as e:
             print(f"Error al ejecutar la consulta: {e}")
 
-    
-    # def consultar_municipio(self, municipio_id: int) -> None:
-    #     consulta: str = "CALL proc_SelectMunicipio(?)"
-    #     conexion = pyodbc.connect(self.string_conexion)
-    #     cursor = conexion.cursor()
-
-    #     cursor.execute(consulta, (municipio_id,))
-    #     lista: list = []
-
-    #     for elemento in cursor:
-    #         entidad = Municipio()
-    #         entidad.SetId(elemento[0])
-    #         entidad.SetNombre(elemento[1])
-    #         entidad.SetPoblacion(elemento[2])
-    #         entidad.SetArea(elemento[3])
-    #         entidad.SetAlcaldeActual(elemento[4])
-    #         entidad.SetFechaFundacion(elemento[5])
-    #         lista.append(entidad)
-
-    #     cursor.close()
-    #     conexion.close()
-
-    #     for dato in lista:
-    #         print(f"Id: {dato.GetId()}, Nombre Municipio: {dato.GetNombre()}, "
-    #             f"Poblacion: {dato.GetPoblacion()}, Area: {dato.GetArea()}, "
-    #             f"Alcalde Actual: {dato.GetAlcaldeActual()}, Fecha Fundación: {dato.GetFechaFundacion()}")
-
     def consultar_departamento(self, departamento_id: int) -> None:
+        conexion = Conexion()
         consulta: str = "CALL proc_SelectDepartamento(%s)"
         print(f"Ejecutando consulta: {consulta} con parámetro: {departamento_id}")
         
         try:
-            conexion = pymysql.connect(**self.string_conexion)
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Ejecutar la consulta con el parámetro
@@ -123,11 +74,12 @@ class Conexion:
             print(f"Error al ejecutar la consulta: {e}")
 
     def consultar_alcalde(self, alcalde_id: int) -> None:
+        conexion = Conexion()
         consulta: str = "CALL proc_SelectAlcalde(%s)"
         print(f"Ejecutando consulta: {consulta} con parámetro: {alcalde_id}")
         
         try:
-            conexion = pymysql.connect(**self.string_conexion)
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Ejecutar la consulta con el parámetro
@@ -157,11 +109,12 @@ class Conexion:
             print(f"Error al ejecutar la consulta: {e}")
 
     def consultar_proyecto(self, proyecto_id: int) -> None:
+        conexion = Conexion()
         consulta: str = "CALL proc_SelectProyecto(%s)"
         print(f"Ejecutando consulta: {consulta} con parámetro: {proyecto_id}")
         
         try:
-            conexion = pymysql.connect(**self.string_conexion)
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Ejecutar la consulta con el parámetro
@@ -192,11 +145,12 @@ class Conexion:
             print(f"Error al ejecutar la consulta: {e}")
 
     def consultar_proveedor(self, proveedor_id: int) -> None:
+        conexion = Conexion()
         consulta: str = "CALL proc_SelectProveedor(%s)"
         print(f"Ejecutando consulta: {consulta} con parámetro: {proveedor_id}")
         
         try:
-            conexion = pymysql.connect(**self.string_conexion)
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Ejecutar la consulta con el parámetro
@@ -224,11 +178,12 @@ class Conexion:
             print(f"Error al ejecutar la consulta: {e}")
 
     def consultar_contrato(self, contrato_id: int) -> None:
+        conexion = Conexion()
         consulta: str = "CALL proc_SelectContrato(%s)"
         print(f"Ejecutando consulta: {consulta} con parámetro: {contrato_id}")
         
         try:
-            conexion = pymysql.connect(**self.string_conexion)
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Ejecutar la consulta con el parámetro
@@ -260,11 +215,12 @@ class Conexion:
             print(f"Error al ejecutar la consulta: {e}")
 
     def consultar_empleado(self, empleado_id: int) -> None:
+        conexion = Conexion()
         consulta: str = "CALL proc_SelectEmpleado(%s)"
         print(f"Ejecutando consulta: {consulta} con parámetro: {empleado_id}")
         
         try:
-            conexion = pymysql.connect(**self.string_conexion)
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Ejecutar la consulta con el parámetro
@@ -295,11 +251,12 @@ class Conexion:
             print(f"Error al ejecutar la consulta: {e}")
 
     def consultar_presupuesto_municipal(self, presupuesto_id: int) -> None:
+        conexion = Conexion()
         consulta: str = "CALL proc_SelectPresupuestoMunicipal(%s)"
         print(f"Ejecutando consulta: {consulta} con parámetro: {presupuesto_id}")
         
         try:
-            conexion = pymysql.connect(**self.string_conexion)
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Ejecutar la consulta con el parámetro
@@ -328,11 +285,12 @@ class Conexion:
             print(f"Error al ejecutar la consulta: {e}")
 
     def consultar_programa_social(self, programa_id: int) -> None:
+        conexion = Conexion()
         consulta: str = "CALL proc_SelectProgramaSocial(%s)"
         print(f"Ejecutando consulta: {consulta} con parámetro: {programa_id}")
         
         try:
-            conexion = pymysql.connect(**self.string_conexion)
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Ejecutar la consulta con el parámetro

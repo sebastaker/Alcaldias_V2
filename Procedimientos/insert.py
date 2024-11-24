@@ -1,23 +1,16 @@
 import pyodbc
 from Clases.clases import *
+from Clases.Conexion import Conexion2
 
-class Conexion:
-  # Cadena de conexión
-    string_conexion: str = """
-        Driver={MySQL ODBC 9.0 Unicode Driver};
-        Server=localhost;
-        Database=Administracion_Alcaldias;
-        PORT=3306;
-        user=sebas_python;
-        password=Sebas5279"""
-
+class Insert:
     # Insertar un municipio 
     def insertar_municipio(self, nombre, poblacion, area, alcalde_actual, fecha_fundacion) -> None:
         if not nombre or not poblacion or not area or not alcalde_actual or not fecha_fundacion:
             print("Error: Todos los campos deben estar diligenciados")
             return
         try:
-            conexion = pyodbc.connect(self.string_conexion)
+            conexion = Conexion2()
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
             if isinstance(fecha_fundacion, datetime.date):
                 fecha_fundacion = fecha_fundacion.strftime('%Y-%m-%d')
@@ -40,7 +33,8 @@ class Conexion:
             return
         
         try:
-            conexion = pyodbc.connect(self.string_conexion)
+            conexion = Conexion2()
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Llamada al procedimiento almacenado
@@ -60,7 +54,8 @@ class Conexion:
             print("Error: Todos los campos deben estar diligenciados")
             return
         try:
-            conexion = pyodbc.connect(self.string_conexion)
+            conexion = Conexion2()
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Convertir fechas a formato string si son del tipo datetime.date
@@ -85,7 +80,8 @@ class Conexion:
             print("Error: Todos los campos deben estar diligenciados")
             return
         try:
-            conexion = pyodbc.connect(self.string_conexion)
+            conexion = Conexion2()
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Convertir fechas a formato string si son del tipo datetime.date
@@ -110,7 +106,8 @@ class Conexion:
             print("Error: Todos los campos deben estar diligenciados")
             return
         try:
-            conexion = pyodbc.connect(self.string_conexion)
+            conexion = Conexion2()
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Llamada al procedimiento almacenado
@@ -130,7 +127,8 @@ class Conexion:
             print("Error: Todos los campos deben estar diligenciados")
             return
         try:
-            conexion = pyodbc.connect(self.string_conexion)
+            conexion = Conexion2()
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Convertir fechas a formato string si son del tipo datetime.date
@@ -155,7 +153,8 @@ class Conexion:
             print("Error: Todos los campos deben estar diligenciados")
             return
         try:
-            conexion = pyodbc.connect(self.string_conexion)
+            conexion = Conexion2()
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Convertir fecha a formato string si es del tipo datetime.date
@@ -179,7 +178,8 @@ class Conexion:
             print("Error: Todos los campos deben estar diligenciados")
             return
         try:
-            conexion = pyodbc.connect(self.string_conexion)
+            conexion = Conexion2()
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Llamada al procedimiento almacenado
@@ -199,7 +199,8 @@ class Conexion:
             print("Error: Todos los campos deben estar diligenciados")
             return
         try:
-            conexion = pyodbc.connect(self.string_conexion)
+            conexion = Conexion2()
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Convertir fechas a formato string si son del tipo datetime.date
@@ -224,7 +225,8 @@ class Conexion:
             print("Error: Todos los campos deben estar diligenciados")
             return
         try:
-            conexion = pyodbc.connect(self.string_conexion)
+            conexion = Conexion2()
+            conexion = conexion.get_conexion()
             cursor = conexion.cursor()
 
             # Convertir fecha a formato string si es del tipo datetime.date
