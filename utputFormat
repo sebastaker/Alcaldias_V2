@@ -1,0 +1,8 @@
+HTTP/1.1 500 INTERNAL SERVER ERROR
+Server: Werkzeug/3.0.4 Python/3.12.6
+Date: Sun, 24 Nov 2024 06:02:43 GMT
+Content-Type: application/json
+Content-Length: 129
+Connection: close
+
+{"Error":"Ocurri\u00f3 un error: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand."}

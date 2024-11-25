@@ -37,6 +37,7 @@ if __name__ == "__main__":
     conexion = select.Select()
     conexion.consultar_municipio(municipio_id = 1)
 
+
     # Inserciones
     conexion = insert.Insert()
     # #Municipio
@@ -76,6 +77,7 @@ if __name__ == "__main__":
     # # Eventos Municipales
     # conexion.insertar_evento_municipal('Feria de las Flores', 1, '2023-08-01', 'Centro de Medellín', 'Evento cultural tradicional', 'Cultural')
     # conexion.insertar_evento_municipal('Festival del Rio', 2, '2023-09-15', 'Parque Principal', 'Celebración anual del río', 'Recreativo')
+    
 
     #Eliminaciones
     conexion = delete.Delete()

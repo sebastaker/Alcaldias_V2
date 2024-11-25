@@ -1,0 +1,34 @@
+(SELECT)
+curl -X GET "http://localhost:4040/municipio/consultar?id=1"
+
+curl -X GET "http://localhost:4040/municipio/consultar?id=2"
+
+
+(INSERT)
+curl -X POST http://localhost:4040/municipio/insertar \
+-H "Content-Type: application/json" \
+-d '{"nombre": "Bogotá", "poblacion": 8000000, "area": 1775, "alcalde_actual": "Claudia López", "fecha_fundacion": "1538-08-06"}'
+
+curl -X POST http://localhost:4040/municipio/insertar \
+-H "Content-Type: application/json" \
+-d '{"nombre": "Medellín", "poblacion": 2500000, "area": 382, "alcalde_actual": "Daniel Quintero", "fecha_fundacion": "1675-11-02"}'
+
+(UPDATE)
+curl -X PUT http://localhost:4040/municipio/actualizar \
+-H "Content-Type: application/json" \
+-d '{"municipio_id": 1, "nombre": "Bogotá", "poblacion": 8100000, "area": 1775, "alcalde_actual": "Claudia López", "fecha_fundacion": "1538-08-06"}'
+
+curl -X PUT http://localhost:4040/municipio/actualizar \
+-H "Content-Type: application/json" \
+-d '{"municipio_id": 2, "nombre": "Medellín", "poblacion": 2600000, "area": 382, "alcalde_actual": "Daniel Quintero", "fecha_fundacion": "1675-11-02"}'
+
+
+(DELETE)
+curl -X DELETE "http://localhost:4040/municipio/eliminar?id=1"
+curl -X DELETE "http://localhost:4040/municipio/eliminar?id=2"
+
+
+
+
+
+
